@@ -753,9 +753,10 @@ function renderQuestion(t){
 }
 
 function onPick(e){
-  var t = G.tasks[G.ti];
-  var k = parseInt(e.currentTarget.getAttribute('data-k'), 10);
   if(G.inReveal || G.lock) return;
+  var t = G.tasks[G.ti];
+  if(!t || t.type !== 'q') return;          // 已经结束/已翻篇的残留点击直接忽略
+  var k = parseInt(e.currentTarget.getAttribute('data-k'), 10);
   if(t.kind === 'self'){
     G.lock = true;                       // 防止连点导致跳题
     G.real[t.i] = k;
